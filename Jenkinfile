@@ -13,16 +13,14 @@ sh 'sudo python3 -m venv venv'
 }
 stage('Infra') {
 steps {
-echo 'Hello World'
+echo 'Hello infra'
 sh 'python3 --version'
-sh 'sudo python3 -m venv venv'
 }
 }
-stage('Infra') {
+stage('Deploy') {
 steps {
-echo 'Hello World'
+echo 'Hello deploy'
 sh 'python3 --version'
-sh 'sudo python3 -m venv venv'
 }
 }
 }
