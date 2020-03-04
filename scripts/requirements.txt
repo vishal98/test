@@ -1,0 +1,4 @@
+boto3==1.9.183
+PyYAML==5.1.1
+requests==2.22.0
+pandas==0.25.3
