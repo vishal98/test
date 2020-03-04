@@ -1,7 +1,7 @@
 #!groovy
 
 pipeline {
-    agent { label 'CNG' }
+    agent any
 
     triggers { pollSCM('H/15 * * * *') }
 
