@@ -8,7 +8,7 @@ stage('Build') {
 steps {
 echo 'Hello World'
 sh 'python3 --version'
-sh 'sudo python3 -m venv venv'
+sh 'python3 -m venv venv'
   }
 }
 stage('Infra') {
