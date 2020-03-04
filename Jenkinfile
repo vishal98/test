@@ -4,13 +4,25 @@ pipeline {
 agent any
 
 stages {
-stage('Hello') {
+stage('Build') {
 steps {
 echo 'Hello World'
 sh 'python3 --version'
 sh 'sudo python3 -m venv venv'
-
-
+  }
+}
+stage('Infra') {
+steps {
+echo 'Hello World'
+sh 'python3 --version'
+sh 'sudo python3 -m venv venv'
+}
+}
+stage('Infra') {
+steps {
+echo 'Hello World'
+sh 'python3 --version'
+sh 'sudo python3 -m venv venv'
 }
 }
 }

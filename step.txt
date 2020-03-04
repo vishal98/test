@@ -1,0 +1,5 @@
+docker build -t jenkins .
+
+
+jenkon build commands
+ docker run --rm --name myjenkins -p 8080:8080 -p 50001:50001 -v /Users/Vishal.Thakur/jenkin_home:/var/jenkins_home -it jenkins
