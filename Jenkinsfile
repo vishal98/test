@@ -11,7 +11,7 @@ pipeline {
     }
 
     environment {
-        AWS_ROLE = "ca_cng_jenkins"
+        AWS_ROLE = "ca_test_jenkins"
     }
 
     stages {
@@ -33,9 +33,9 @@ pipeline {
             }
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'tuiuki-cng-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
@@ -51,15 +51,15 @@ pipeline {
         stage('Checkout and Sync') {
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=433485033485 LAYER=DEV venv/bin/python3 checkout_sync.py'
+                            if (env.GIT_BRANCH == 'origin/sample' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 LAYER=DEV venv/bin/python3 checkout_sync.py'
 
                         }
                     }
@@ -72,13 +72,13 @@ pipeline {
                 SOURCE_MARKET = 'UKN'
             }
             steps {
-                withCredentials([string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')]) {
+                withCredentials([string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=433485033485 LAYER=DEV SNOWFLAKE_SECRET_ID=ca-cng-dev-snowflake-orchestration venv/bin/python3 build.py'
+                            if (env.GIT_BRANCH == 'origin/sample' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 LAYER=DEV SNOWFLAKE_SECRET_ID=ca-test-dev-snowflake-orchestration venv/bin/python3 build.py'
 
                         }
                     }
@@ -88,16 +88,16 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'tuiuki-cng-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon'|| env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=433485033485 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 deploy.py'
+                            if (env.GIT_BRANCH == 'origin/sample'|| env.GIT_BRANCH.startsWith('origin/CYNG-'))
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 deploy.py'
                         }
                     }
                 }
@@ -107,16 +107,16 @@ pipeline {
             when { expression { return params.skip_tests == false } }
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'tuiuki-cng-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon'|| env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=433485033485 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 test.py'
+                            if (env.GIT_BRANCH == 'origin/sample'|| env.GIT_BRANCH.startsWith('origin/CYNG-'))
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 test.py'
                         }
                     }
                 }
@@ -130,16 +130,16 @@ pipeline {
             }
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'tuiuki-cng-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=433485033485 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 infra.py'
+                            if (env.GIT_BRANCH == 'origin/sample' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 infra.py'
                         }
                     }
                 }
@@ -148,14 +148,14 @@ pipeline {
         stage('Tag') {
             steps {
                 withCredentials([
-                        sshUserPrivateKey(credentialsId: 'cng-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                        sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
                 ]) {
 
                     dir('scripts') {
                         script {
 
-                            if (env.GIT_BRANCH == 'origin/cng_learnathon')
+                            if (env.GIT_BRANCH == 'origin/sample')
                                 sh 'LAYER=DEV venv/bin/python3 tag.py'
                         }
                     }
