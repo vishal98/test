@@ -8,6 +8,8 @@ stage('Hello') {
 steps {
 echo 'Hello World'
 sh 'python3 -m venv venv'
+sh 'python3 --version'
+
 
 }
 }
