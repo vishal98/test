@@ -35,9 +35,8 @@ pipeline {
                 withCredentials([
                         sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
                         sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
-                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
-                         string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK'),
-                                                string(credentialsId: 'aws_secret', variable: 'secret'),
+                        string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK'),
+                        string(credentialsId: 'aws_secret', variable: 'secret'),
                                                 string(credentialsId: 'aws_access_id', variable: 'access_id'),
                                                 string(credentialsId: 'aws_token', variable: 'token')
 
