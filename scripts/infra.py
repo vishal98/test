@@ -33,9 +33,10 @@ if __name__ == "__main__":
 
         aug_env = os.environ.copy()
         import json
-        filenamelocal="/Users/Vishal.Thakur/jenkin_home/assume-role-output.json"
+        filenamelocal="/var/jenkins_home/assume-role-output.json"
         local_file = open(filenamelocal, errors='ignore', mode='r')
         localdata = json.load(local_file)
+        print(localdata)
         cred=localdata["Credentials"]
         access_id=cred["AccessKeyId"]
         secret=cred["SecretAccessKey"]
