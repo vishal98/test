@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
         aug_env = os.environ.copy()
         import json
-        filenamelocal="/var/jenkins_home/assume-role-output.json"
+        filenamelocal="/var/jenkins_home/assume-role-output_local.json"
         local_file = open(filenamelocal, errors='ignore', mode='r')
         localdata = json.load(local_file)
         print(localdata)
