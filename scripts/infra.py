@@ -48,11 +48,16 @@ if __name__ == "__main__":
         aug_env['GIT_SSH_COMMAND'] = 'ssh -i ' + GIT_SSH_KEY
         aug_env["LAYER"]=LAYER
 
+        print("=== Terraform %s for %s ===" % (INFRA_ACTION, LAYER))
+        owd = os.getcwd()
+        os.chdir('../infra/terraform')
+        out = execute(['make', INFRA_ACTION], stderr=sys.stderr, env=aug_env)
+        os.chdir(owd)
+        print(out)
 
 
 
-
-        if LAYER == 'LRNTHN' or LAYER == 'INT' or LAYER == 'SIT' or LAYER == 'PRD':
+        if LAYER == 'LRNTHN1' or LAYER == 'INT' or LAYER == 'SIT' or LAYER == 'PRD':
             if INFRA_ACTION == 'destroy':
                 lb_dns_name = ''
                 lb_zone_id = ''
