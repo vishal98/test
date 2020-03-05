@@ -1,8 +1,5 @@
 import os
 import sys
-import boto3
-import yaml
-from assume_role import get_temporary_credentials
 from common import execute, get_asg_instances_ips, validate_ssh
 
 

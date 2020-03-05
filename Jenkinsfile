@@ -36,13 +36,18 @@ pipeline {
                         sshUserPrivateKey(credentialsId: 'sample-dev', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'USER'),
                         sshUserPrivateKey(credentialsId: 'test-service-user', keyFileVariable: 'GIT_SSH_KEY'),
                         string(credentialsId: 'test-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK')
+                         string(credentialsId: 'cng-orchestration-slack-webhook', variable: 'SLACK_WEBHOOK'),
+                                                string(credentialsId: 'aws_secret', variable: 'secret'),
+                                                string(credentialsId: 'aws_access_id', variable: 'access_id'),
+                                                string(credentialsId: 'aws_token', variable: 'token')
+
                 ]) {
 
                     dir('scripts') {
                         script {
 
                             if (env.GIT_BRANCH == 'origin/sample' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV venv/bin/python3 infra.py'
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV aws_access_id=access_id aws_secret=secret aws_token=token  venv/bin/python3 infra.py'
                         }
                     }
                 }
