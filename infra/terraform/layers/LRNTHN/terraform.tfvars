@@ -1,7 +1,7 @@
 environment        = "ca-cng-lrn_local"
 vpc_environment    = "test-vpc-dev"
 availability_zones = ["us-east-2b", "us-east-2a"]
-region             = "us-east-2b"
+region             = "us-east-2"
 common_tags = {
   TechnicalOwner = "ca_ops"
   Application    = "cng"
