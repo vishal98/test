@@ -16,13 +16,13 @@ INFRA_ACTION="plan"
 SLACK_WEBHOOK="ggg"
 os.environ['SLACK_WEBHOOK']="gg"
 
+
 print("hey infra")
 token=os.environ['aws_token']
 access_id=  os.environ["access_id"]
 secret=os.environ["aws_secret"]
 print(token)
-print("aceis")
-print(access_id)
+
 
 
 
@@ -33,7 +33,9 @@ if __name__ == "__main__":
 
         aug_env = os.environ.copy()
         import json
-        filenamelocal="/var/jenkins_home/assume-role-output_local.json"
+        #filenamelocal="/var/jenkins_home/assume-role-output_local.json"
+        filenamelocal="/Users/Vishal.Thakur/assume-role-output_local.json"
+
         local_file = open(filenamelocal, errors='ignore', mode='r')
         localdata = json.load(local_file)
         print(localdata)

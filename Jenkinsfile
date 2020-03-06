@@ -46,7 +46,7 @@ pipeline {
                         script {
 
                             if (env.GIT_BRANCH == 'origin/sample' || env.GIT_BRANCH.startsWith('origin/CYNG-'))
-                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV aws_access_id=access_id aws_secret=secret aws_token=token  venv/bin/python3 infra.py'
+                                sh 'AWS_ACCOUNT_ID=awsacnt123 SSH_KEY=${SSH_KEY} LAYER=DEV aws_access_id=${access_id} aws_secret=${secret} aws_token=${token}  venv/bin/python3 infra.py'
                         }
                     }
                 }
