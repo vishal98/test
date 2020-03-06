@@ -1,7 +1,7 @@
 environment        = "ca-cng-lrn_local"
-vpc_environment    = "ca-cng-dev"
-availability_zones = ["eu-central-1a", "eu-central-1b"]
-region             = "eu-central-1"
+vpc_environment    = "test-vpc-dev"
+availability_zones = ["us-east-2b", "us-east-2a"]
+region             = "us-east-2b"
 common_tags = {
   TechnicalOwner = "ca_ops"
   Application    = "cng"
@@ -25,7 +25,7 @@ redis_parameter_group_name    = "default.redis5.0"
 
 lc_master_instance_type = "t2.small"
 lc_worker_instance_type = "t2.small"
-lc_key_name             = "tuiuki-cng-dev"
+lc_key_name             = "test-local-dev"
 lc_root_vl_type         = "gp2"
 lc_root_vl_size         = "30"
 iam_instance_profile    = "ca_cng_airflow"

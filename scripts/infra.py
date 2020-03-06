@@ -76,6 +76,8 @@ if __name__ == "__main__":
             print("=== Terraform %s for %s ===" % (INFRA_ACTION, "%s-DNS" % LAYER))
             owd = os.getcwd()
             os.chdir('../infra/terraform')
+            execute(['make', "init"], stdout=sys.stdout, stderr=sys.stderr, env=aug_env_dns)
+
             execute(['make', INFRA_ACTION], stdout=sys.stdout, stderr=sys.stderr, env=aug_env_dns)
             os.chdir(owd)
 
