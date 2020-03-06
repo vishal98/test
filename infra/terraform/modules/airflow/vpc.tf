@@ -1,7 +1,7 @@
 ####################    VPC    ####################
 data "aws_vpc" "cng" {
   tags = {
-    Name = "${var.vpc_environment}-vpc"
+    Name = "${var.vpc_environment}"
   }
 }
 
