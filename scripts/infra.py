@@ -26,7 +26,6 @@ print(token)
 
 
 
-
 if __name__ == "__main__":
     try:
 
@@ -34,15 +33,15 @@ if __name__ == "__main__":
         aug_env = os.environ.copy()
         import json
         #filenamelocal="/var/jenkins_home/assume-role-output_local.json"
-        filenamelocal="/Users/Vishal.Thakur/assume-role-output_local.json"
-
-        local_file = open(filenamelocal, errors='ignore', mode='r')
-        localdata = json.load(local_file)
-        print(localdata)
-        cred=localdata["Credentials"]
-        access_id=cred["AccessKeyId"]
-        secret=cred["SecretAccessKey"]
-        token=cred["SessionToken"]
+        # filenamelocal="/Users/Vishal.Thakur/assume-role-output_local.json"
+        #
+        # local_file = open(filenamelocal, errors='ignore', mode='r')
+        # localdata = json.load(local_file)
+        # print(localdata)
+        # cred=localdata["Credentials"]
+        # access_id=cred["AccessKeyId"]
+        # secret=cred["SecretAccessKey"]
+        # token=cred["SessionToken"]
         aug_env['AWS_ACCESS_KEY_ID'] =access_id
         aug_env['AWS_SECRET_ACCESS_KEY'] = secret
         aug_env['AWS_SESSION_TOKEN'] =token

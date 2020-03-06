@@ -7,7 +7,6 @@ resource "aws_launch_configuration" "master_cng_lc" {
   name_prefix          = "${var.environment}-airflow-master-lc-"
   image_id             = "${data.aws_ami.master_cng_ami.id}"
   instance_type        = "${var.lc_master_instance_type}"
-  key_name             = "${var.lc_key_name}"
   security_groups      = ["${aws_security_group.cng_airflow_sg.id}"]
 
 
